@@ -49,10 +49,22 @@ public class Request {
 
                 JSONObject data = m_jArry.getJSONObject(i);
                 JSONObject img_data = data.getJSONObject("images");
+                JSONObject caption = data.getJSONObject("caption");
+
                 JSONObject thumbnail = img_data.getJSONObject("thumbnail");
+                JSONObject standard_resolution = img_data.getJSONObject("standard_resolution");
+
                 String thumbnail_url = thumbnail.getString("url");
-                Log.v("Request", "thumbnail = " + thumbnail_url);
-                list.add(new GridItem(new SocialPicture(thumbnail_url)));
+//                Log.v("Request", "thumbnail = " + thumbnail_url);
+
+                String standard_resolution_url = standard_resolution.getString("url");
+//                Log.v("Request", "standard_resolution_url = " + standard_resolution_url);
+
+                String text = caption.getString("text");
+
+                SocialPicture sp = new SocialPicture(thumbnail_url, standard_resolution_url, text);
+
+                list.add(new GridItem(sp));
 
             }
         } catch (JSONException e) {
